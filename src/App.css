@@ -1,0 +1,151 @@
+/* 
+ * 이부분은 신경쓰시지 않으셔도 됩니다 :)
+*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.4;
+  color: #444;
+  background: #fff;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.inner {
+  width: 100%;
+  padding: 8rem 10px 4rem;
+}
+
+.form-container {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  border-radius: calc(0.5 * 100px);
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.38);
+  justify-content: space-evenly;
+}
+
+.input-text {
+  font-size: 1rem;
+  font-weight: 400;
+  width: 85%;
+  padding-right: 5px;
+  padding-left: 10px;
+  border-radius: calc(0.5 * 100px);
+  background-color: transparent;
+}
+
+.input-submit {
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.input-text,
+.input-submit {
+  height: 45px;
+  outline: none;
+  border: none;
+}
+
+.btn-plus {
+  color: darkcyan;
+  font-size: 20px;
+}
+
+.btn-trash {
+  color: orangered;
+  font-size: 16px;
+}
+
+.btn-plus:hover,
+.btn-trash:hover {
+  opacity: 0.5;
+}
+
+.active-link {
+  color: orangered;
+  text-decoration: underline;
+}
+
+.main__content {
+  flex: 7;
+}
+
+.main__content h1 {
+  margin-bottom: 15px;
+  line-height: 30px;
+  font-size: 30px;
+}
+
+.main__content p {
+  line-height: 25px;
+}
+
+.empty-list {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 2.5rem;
+  letter-spacing: 1.5rem;
+  margin-left: 0.75rem;
+  color: #ececec;
+}
+
+.item {
+  list-style-type: none;
+  padding: 17px 1.5rem;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 1.2rem;
+  letter-spacing: 1.5px;
+}
+.item:hover {
+  opacity: 0.85;
+  background-color: #eaeaea;
+}
+
+.item-option {
+  float: right;
+}
+
+.item-option button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.spinner {
+  font-size: 20px;
+  animation: spin 2s linear infinite;
+  display: flex;
+  align-self: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.textInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dfdfdf;
+}

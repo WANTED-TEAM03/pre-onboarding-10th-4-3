@@ -1,6 +1,6 @@
 import { Fetch } from "../utils";
 
-const BASE_URL = "https://api.at-ant.co";
+const BASE_URL = "https://fake-api.labnote.co/v1";
 
 export const getTodoList = async () => {
   const response = await Fetch(`${BASE_URL}/todos`, {

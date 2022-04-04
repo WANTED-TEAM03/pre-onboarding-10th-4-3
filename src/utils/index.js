@@ -46,7 +46,7 @@ const saveToFakeDB = (newDB) => {
 };
 
 export const Fetch = async (url = "", options = { method: "GET" }) => {
-  const BASE_URL = "https://api.at-ant.co";
+  const BASE_URL = "https://fake-api.labnote.co/v1";
   const ENDPOINT = url?.split(BASE_URL)[1];
   const METHOD = options?.method?.toLowerCase();
   const BODY = options?.body;

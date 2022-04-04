@@ -27,7 +27,7 @@
 ## 🔍 API
 
 - HTTP
-  - `GET https://atant-interview-api.com/todos/{query}?first={first}&last={last}`
+  - `GET https://interview-api.labnote.co/v1/todos/{query}?first={first}&last={last}`
 - Parameters
   | Name | Required | Type | Description |
   | --- | --- | --- |--- |
@@ -48,7 +48,7 @@
 
   ```js
   // Request
-  `GET https://atant-interview-api.com/todos/hello?first=0&last=2`
+  `GET https://interview-api.labnote.co/v1/todos/hello?first=0&last=2`
 
   // RESPONSE BODY (JSON)
   {

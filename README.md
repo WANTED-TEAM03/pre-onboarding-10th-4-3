@@ -21,7 +21,7 @@
 
 - [디자인 가이드](some_figma_link)를 참고해서 InputTodo의 디자인 수정 및 dropdown을 새로 만들어주세요. (Bootstrap이나 Ant Design, tailwindcss와 같은 UI kit는 사용하지 않고 구현해 주세요.)
 - input에 500ms로 debounce를 적용해주세요.
-- dropdown에 추천된 아이템들이 처음에 10개가 나올 수 있도록 하고, 아이템이 더 있으면 무한 스크롤로 받아올 수 있도록 구현해주세요. (API는 아래를 참고 부탁드립니다. api key는 별도로 안내드립니다.)
+- dropdown에 추천된 아이템들이 처음에 10개가 나올 수 있도록 하고, 아이템이 더 있으면 무한 스크롤로 받아올 수 있도록 구현해주세요. (API는 아래를 참고 부탁드립니다. 별도로 전달 받으신 api token은 `.env` 파일에 추가 부탁드립니다.)
 - dropdown에서 아이템 하나를 선택하면, input의 value는 초기화가 되고 아이템이 리스트에 추가되도록 구현해주세요.
 
 ## 🔍 API
@@ -31,22 +31,22 @@
 - Parameters
   | Name | Required | Type | Description |
   | --- | --- | --- |--- |
-  | query | yes | string | input에서 검색하는 단어 |
-  | first | yes | number | 검색 결과에서 가져올 시작 index |
-  | last | yes | number | 검색 결과에서 가져올 마지막 index (first 보다 10 이상 크더라도 10개만 반환) |
+  | query | yes | `string` | input에서 검색하는 단어 |
+  | first | yes | `number` | 검색 결과에서 가져올 시작 index |
+  | last | yes | `number` | 검색 결과에서 가져올 마지막 index (`first` 보다 10 이상 크더라도 10개만 반환) |
 - Responses
   | Name | Type | Description |
   | --- | --- |--- |
   | 200 | Query result | 성공. 결과가 응답 페이로드에 있습니다. |
-  | 460 | Error response | `last` is less than `first`. |
-  | 461 | Error response | Invalid type of `first` or `last`. |
+  | 460 | Error response | Invalid type of `first` or `last`. |
+  | 461 | Error response | `last` is less than `first`. |
   | ... | Error response | ... |
   | Other status codes | Error response | 오류 응답 객체입니다. |
 - Query result
   | Name | Type | Description |
   | --- | --- |--- |
-  | todos | string[] | 검색된 todo 아이템의 목록 |
-  | total | number | 검색된 총 개수 |
+  | todos | `string[]` | 검색된 todo 아이템의 목록 |
+  | total | `number` | 검색된 총 개수 |
 - Sample
 
   ```js

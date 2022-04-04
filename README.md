@@ -37,7 +37,10 @@
 - Responses
   | Name | Type | Description |
   | --- | --- |--- |
-  | 200 OK | Query result | 성공. 결과가 응답 페이로드에 있습니다. |
+  | 200 | Query result | 성공. 결과가 응답 페이로드에 있습니다. |
+  | 460 | Error response | `last` is less than `first`. |
+  | 461 | Error response | Invalid type of `first` or `last`. |
+  | ... | Error response | ... |
   | Other status codes | Error response | 오류 응답 객체입니다. |
 - Query result
   | Name | Type | Description |

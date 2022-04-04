@@ -44,8 +44,13 @@
   | --- | --- |--- |
   | todos | string[] | 검색된 todo 아이템의 목록 |
   | total | number | 검색된 총 개수 |
-- Sample response (JSON)
-  ```json
+- Sample
+
+  ```js
+  // Request
+  `GET https://atant-interview-api.com/todos/hello?first=0&last=2`
+
+  // RESPONSE BODY (JSON)
   {
     "todos": ["hello", "Hello, there", "Nice to meet you, hello!"],
     "total": 3

@@ -29,7 +29,7 @@
 별도로 전달 받으신 api token은 `.env` 파일에 추가 부탁드립니다.
 
 - HTTP
-  - `GET https://interview-api.labnote.co/v1/todos/{query}?first={first}&last={last}`
+  - `GET https://interview-api.labnote.co/todos/{query}?first={first}&last={last}`
 - Parameters
   | Name | Required | Type | Description |
   | --- | --- | --- |--- |
@@ -53,7 +53,7 @@
 
   ```js
   // Request
-  `GET https://interview-api.labnote.co/v1/todos/hello?first=0&last=2`
+  `GET https://interview-api.labnote.co/todos/hello?first=0&last=2`
 
   // RESPONSE BODY (JSON)
   {

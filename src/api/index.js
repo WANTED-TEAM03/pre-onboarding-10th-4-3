@@ -1,26 +1,21 @@
-import { Fetch } from "../utils";
+import axios from "axios";
 
-const BASE_URL = "https://fake-api.labnote.co/v1";
+const baseURL = process.env.REACT_APP_API_URL;
+const token = process.env.REACT_APP_TOKEN;
 
-export const getTodoList = async () => {
-  const response = await Fetch(`${BASE_URL}/todos`, {
-    method: "GET",
-  });
+const baseInstance = axios.create({
+  baseURL,
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
 
-  return response;
+baseInstance.interceptors.response.use(({ data }) => data);
+
+const apiRequest = {
+  get: (url, request) => baseInstance.get(url, request),
+  delete: (url, request) => baseInstance.delete(url, request),
+  post: (url, data, config) => baseInstance.post(url, data, config),
 };
 
-export const createTodo = async (data) => {
-  const response = await Fetch(`${BASE_URL}/todos`, {
-    method: "POST",
-    body: data,
-  });
-  return response;
-};
-
-export const deleteTodo = async (id) => {
-  const response = await Fetch(`${BASE_URL}/todos/${id}`, {
-    method: "DELETE",
-  });
-  return response;
-};
+export default apiRequest;

@@ -77,7 +77,7 @@ src
 | Name  | Required | Type     | Default | Description             |
 | ----- | -------- | -------- | ------- | ----------------------- |
 | q     | yes      | `string` | -       | input에서 검색하는 단어 |
-| page  | no       | `number` | `0`     | 현재 페이지 지정        |
+| page  | no       | `number` | `1`     | 현재 페이지 지정        |
 | limit | no       | `number` | `10`    | 받아올 최대 사이즈 값   |
 
 ### Responses

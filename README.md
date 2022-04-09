@@ -56,10 +56,11 @@ src
 
 사용자가 input에 타이핑을 하면 일치하는 아이템들이 dropdown에 보여질 수 있도록 `InputTodo`에 추천 기능을 구현해주시면 됩니다.
 
-1. [디자인 가이드](some_figma_link)를 참고해서 InputTodo의 디자인 수정 및 dropdown을 새로 만들어주세요. (Bootstrap이나 Ant Design, tailwindcss와 같은 UI kit는 사용하지 않고 구현해 주세요.)
-2. Input에 `500ms`로 debounce를 적용해주세요.
-3. Dropdown에 추천된 아이템들이 처음에 10개가 나올 수 있도록 하고, 아이템이 더 있으면 무한 스크롤로 받아올 수 있도록 구현해주세요.
-4. Dropdown에서 아이템 하나를 선택하면, input의 value는 초기화가 되고 아이템이 리스트에 추가되도록 구현해주세요.
+1. [디자인 가이드](https://zpl.io/r17Wzv1)를 참고해서 InputTodo의 디자인 수정 및 dropdown을 새로 만들어주세요. (해당 링크는 제플린 프로젝트로 미리 이메일로 초대를 드리겠습니다.)
+2. Bootstrap이나 Ant Design, tailwindcss와 같은 UI kit는 사용하지 않고 구현해 주세요.
+3. Input에 `500ms`로 debounce를 적용해주세요.
+4. Dropdown에 추천된 아이템들이 처음에 10개가 나올 수 있도록 하고, 아이템이 더 있으면 무한 스크롤로 최대 10개씩 받아올 수 있도록 구현해주세요.
+5. Dropdown에서 아이템 하나를 선택하면, input의 value는 초기화가 되고 아이템이 리스트에 추가되도록 구현해주세요.
 
 <br/>
 
@@ -69,15 +70,15 @@ src
 
 ### HTTP
 
-- API: `https://interview-api.labnote.co/api`
-- RESOURCE: `{ GET } /todos/search`
+- API: `https://interview-api.labnote.co`
+- RESOURCE: `{ GET } /search`
 
 ### Parameters
 
 | Name  | Required | Type     | Default | Description             |
 | ----- | -------- | -------- | ------- | ----------------------- |
 | q     | yes      | `string` | -       | input에서 검색하는 단어 |
-| page  | no       | `number` | `1`     | 현재 페이지 지정        |
+| page  | no       | `number` | `1`     | 받아올 페이지 번호      |
 | limit | no       | `number` | `10`    | 받아올 최대 사이즈 값   |
 
 ### Responses
@@ -93,43 +94,43 @@ src
 
 ## Payload result
 
-| Field    | Type       | Description                   |
-| -------- | ---------- | ----------------------------- |
-| `q`      | `string`   | 쿼리 키워드                   |
-| `result` | `string[]` | `q`로 필터된 리스트           |
-| `qty`    | `number`   | `q`를 포함한 전체 리스트 길이 |
-| `total`  | `number`   | 현제 `result` 길이            |
-| `page`   | `number`   | 현재 페이지                   |
-| `limit`  | `number`   | per page 사이즈               |
+| Field    | Type       | Description                            |
+| -------- | ---------- | -------------------------------------- |
+| `q`      | `string`   | 쿼리 키워드                            |
+| `page`   | `number`   | 현재 페이지 번호                       |
+| `limit`  | `number`   | per page 사이즈                        |
+| `result` | `string[]` | `limit`이 적용되어 `q`로 필터된 리스트 |
+| `qty`    | `number`   | `result`의 길이                        |
+| `total`  | `number`   | `q`로 필터된 총 `result` 길이          |
 
 ### Sample
 
 ```javascript
 // Request
-`{ GET } https://interview-api.labnote.co}/search?q=lorem&page=1&limit=10`
+`{ GET } https://interview-api.labnote.co/search?q=lorem&page=1&limit=10`
 
 // RESPONSE (JSON)
 {
   "opcode": 200,
   "message": "OK",
   "data": {
-      "q": "lorem",
-      "result": [
-          "Maecenas in lorem sit amet felis volutpat dapibus vulputate at dui.",
-          "Nam porta lorem ut turpis pellentesque, et efficitur felis ullamcorper.",
-          "Duis fringilla turpis vel lorem eleifend, sit amet hendrerit velit gravida.",
-          "Cras in felis eget augue cursus placerat ac eget lorem.",
-          "Sed id orci quis mi porttitor pulvinar cursus eget lorem.",
-          "Fusce tincidunt lorem ac purus elementum, ut fermentum lacus mollis.",
-          "Nam commodo lorem ac posuere dignissim.",
-          "Etiam eu elit finibus enim consequat scelerisque aliquam vulputate lorem.",
-          "Donec in lorem id eros ornare aliquam ut a nisi.",
-          "Donec efficitur nulla eget lorem sollicitudin, in blandit massa dictum."
-      ],
-      "qty": 10,
-      "total": 19,
-      "page": 1,
-      "limit": 10
+    "q": "lorem",
+    "page": 1,
+    "limit": 10,
+    "result": [
+      "Maecenas in lorem sit amet felis volutpat dapibus vulputate at dui.",
+      "Nam porta lorem ut turpis pellentesque, et efficitur felis ullamcorper.",
+      "Duis fringilla turpis vel lorem eleifend, sit amet hendrerit velit gravida.",
+      "Cras in felis eget augue cursus placerat ac eget lorem.",
+      "Sed id orci quis mi porttitor pulvinar cursus eget lorem.",
+      "Fusce tincidunt lorem ac purus elementum, ut fermentum lacus mollis.",
+      "Nam commodo lorem ac posuere dignissim.",
+      "Etiam eu elit finibus enim consequat scelerisque aliquam vulputate lorem.",
+      "Donec in lorem id eros ornare aliquam ut a nisi.",
+      "Donec efficitur nulla eget lorem sollicitudin, in blandit massa dictum."
+    ],
+    "qty": 10,
+    "total": 19
   }
 }
 ```

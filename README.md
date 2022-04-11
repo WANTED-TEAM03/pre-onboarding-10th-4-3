@@ -66,7 +66,7 @@ src
 
 ## 🔍 API
 
-> 별도로 전달 받으신 api token은 `.env` 파일에 추가 부탁드립니다.
+*__별도로 전달 받으신 api token은 `.env` 파일에 추가 부탁드립니다.__*
 
 ### HTTP
 
@@ -109,7 +109,7 @@ src
 // Request
 `{ GET } https://interview-api.labnote.co/search?q=lorem&page=1&limit=10`
 
-// RESPONSE (JSON)
+// Response (JSON)
 {
   "opcode": 200,
   "message": "OK",

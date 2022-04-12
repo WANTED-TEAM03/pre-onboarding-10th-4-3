@@ -52,7 +52,7 @@ src
 
 ## 🛠 기능 구현
 
-> Dropdown의 아이템은 아래 [API](##API) 를 활용하시면 됩니다.
+> Dropdown의 아이템은 아래 API를 활용하시면 됩니다.
 
 사용자가 input에 타이핑을 하면 일치하는 아이템들이 dropdown에 보여질 수 있도록 `InputTodo`에 추천 기능을 구현해주시면 됩니다.
 
@@ -70,7 +70,7 @@ src
 
 ### HTTP
 
-- API: `https://interview-api.labnote.co`
+- API: `https://interview-api.labnote.co/api`
 - RESOURCE: `{ GET } /search`
 
 ### Parameters
@@ -85,7 +85,7 @@ src
 
 | Status | Messsage              | data                                                 |
 | ------ | --------------------- | ---------------------------------------------------- |
-| 200    | Ok                    | 응답 데이터 (See [Payload result](##Payload-result)) |
+| 200    | Ok                    | 응답 데이터 (See Payload result) |
 | 400    | Bad Request           | `details`: 상세 validation 에러 메시지               |
 | 401    | You are unauthorized. | `(인증 실패, 토큰 필요)`                             |
 | 500    | Internal Server Error | `(서버측 에러)`                                      |
@@ -107,7 +107,7 @@ src
 
 ```javascript
 // Request
-`{ GET } https://interview-api.labnote.co/search?q=lorem&page=1&limit=10`
+`{ GET } https://interview-api.labnote.co/api/search?q=lorem&page=1&limit=10`
 
 // Response (JSON)
 {

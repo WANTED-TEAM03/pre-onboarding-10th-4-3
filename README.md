@@ -30,7 +30,7 @@ src
  ┣ App.css
  ┣ App.js
  ┗ index.js
-.env // <--- YOU NEED this!
+.env // <--- YOU NEED THIS!
 
 ```
 

@@ -9,7 +9,7 @@ const Header = () => {
     marginBottom: '2rem',
     lineHeight: '1em',
     color: '#ececec',
-    textAlign: 'center',
+    textAlign: 'center' as const,
   };
 
   return (

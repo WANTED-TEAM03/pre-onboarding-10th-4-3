@@ -1,0 +1,18 @@
+.input_submit {
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 45px;
+  outline: none;
+  border: none;
+}
+
+.btn_plus {
+  color: darkcyan;
+  font-size: 20px;
+}
+
+.btn_plus:hover {
+  opacity: 0.5;
+}

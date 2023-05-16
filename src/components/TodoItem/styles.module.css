@@ -1,0 +1,21 @@
+.item {
+  list-style-type: none;
+  padding: 17px 1.5rem;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 1.2rem;
+  letter-spacing: 1.5px;
+}
+.item:hover {
+  opacity: 0.85;
+  background-color: #eaeaea;
+}
+
+.item_option {
+  float: right;
+}
+
+.item_option button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

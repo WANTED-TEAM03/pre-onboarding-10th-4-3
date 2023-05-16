@@ -1,4 +1,5 @@
-import TodoItem from './TodoItem';
+import TodoItem from '../TodoItem';
+import styles from './styles.module.css';
 
 type TodoListProps = {
   todos: Todo[];
@@ -13,7 +14,8 @@ const TodoList = ({ todos, setTodos }: TodoListProps) => {
       ))}
     </ul>
   ) : (
-    <div className="empty-list">...</div>
+    <div className={styles.empty_list}>...</div>
   );
 };
+
 export default TodoList;

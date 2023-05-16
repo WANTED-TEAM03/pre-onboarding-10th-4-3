@@ -6,11 +6,11 @@ import TodoList from '../components/TodoList';
 import { getTodoList } from '../api/todo';
 
 const Main = () => {
-  const [todoListData, setTodoListData] = useState([]);
+  const [todoListData, setTodoListData] = useState<Todo[]>([]);
 
   useEffect(() => {
     (async () => {
-      const { data } = await getTodoList();
+      const data = await getTodoList();
       setTodoListData(data || []);
     })();
   }, []);

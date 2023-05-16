@@ -1,6 +1,11 @@
 import TodoItem from './TodoItem';
 
-const TodoList = ({ todos, setTodos }) => {
+type TodoListProps = {
+  todos: Todo[];
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+};
+
+const TodoList = ({ todos, setTodos }: TodoListProps) => {
   return todos.length ? (
     <ul>
       {todos.map(({ id, title }) => (

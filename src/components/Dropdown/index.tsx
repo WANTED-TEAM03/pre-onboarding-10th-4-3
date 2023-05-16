@@ -38,7 +38,10 @@ const Dropdown = ({
       ))}
       {isSearching && <LoadingSpinner className={styles.align_center} />}
       {!isSearching && isMoreData && (
-        <span className={styles.align_center} ref={setTarget}>
+        <span
+          className={`${styles.align_center} ${styles.ellipsis}`}
+          ref={setTarget}
+        >
           ...
         </span>
       )}

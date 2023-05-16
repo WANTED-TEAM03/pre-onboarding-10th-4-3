@@ -1,4 +1,4 @@
-import { FaSpinner } from 'react-icons/fa';
+import { ImSpinner8 } from 'react-icons/im';
 
 import styles from './styles.module.css';
 
@@ -8,7 +8,7 @@ type LoadingSpinnerProps = {
 
 const LoadingSpinner = ({ className }: LoadingSpinnerProps) => {
   const classNames = [styles.spinner, className].join(' ');
-  return <FaSpinner className={classNames} />;
+  return <ImSpinner8 className={classNames} />;
 };
 
 export default LoadingSpinner;

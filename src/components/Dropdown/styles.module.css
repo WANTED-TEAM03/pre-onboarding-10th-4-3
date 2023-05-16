@@ -1,0 +1,20 @@
+.dropdown {
+  position: absolute;
+  left: 0;
+  border: 1px solid #dedede;
+  width: 100%;
+  margin-top: 60px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 8px 4px;
+  max-height: 300px;
+  overflow-y: scroll;
+  z-index: 100;
+}
+
+.align_center {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  color: #9f9f9f;
+}

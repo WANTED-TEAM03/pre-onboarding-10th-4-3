@@ -2,8 +2,13 @@ import { FaSpinner } from 'react-icons/fa';
 
 import styles from './styles.module.css';
 
-const LoadingSpinner = () => {
-  return <FaSpinner className={styles.spinner} />;
+type LoadingSpinnerProps = {
+  className?: string;
+};
+
+const LoadingSpinner = ({ className }: LoadingSpinnerProps) => {
+  const classNames = [styles.spinner, className].join(' ');
+  return <FaSpinner className={classNames} />;
 };
 
 export default LoadingSpinner;

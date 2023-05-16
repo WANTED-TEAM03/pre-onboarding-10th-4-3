@@ -1,7 +1,7 @@
-import { FaSpinner, FaTrash } from "react-icons/fa";
-import { useCallback, useState } from "react";
+import { FaSpinner, FaTrash } from 'react-icons/fa';
+import { useCallback, useState } from 'react';
 
-import { deleteTodo } from "../api/todo";
+import { deleteTodo } from '../api/todo';
 
 const TodoItem = ({ id, title, setTodos }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +14,7 @@ const TodoItem = ({ id, title, setTodos }) => {
       setTodos((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error(error);
-      alert("Something went wrong.");
+      alert('Something went wrong.');
     } finally {
       setIsLoading(false);
     }

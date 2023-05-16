@@ -1,8 +1,10 @@
-import { FaPlusCircle, FaSpinner } from 'react-icons/fa';
 import { useCallback, useEffect, useState } from 'react';
 
-import { createTodo } from '../api/todo';
-import useFocus from '../hooks/useFocus';
+import { createTodo } from '../../api/todo';
+import useFocus from '../../hooks/useFocus';
+import LoadingSpinner from '../shared/LoadingSpinner';
+import PlusButton from '../shared/PlusButton';
+import styles from './styles.module.css';
 
 type InputTodoProps = {
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
@@ -46,22 +48,16 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   );
 
   return (
-    <form className="form-container" onSubmit={handleSubmit}>
+    <form className={styles.form_container} onSubmit={handleSubmit}>
       <input
-        className="input-text"
+        className={styles.input_text}
         placeholder="Add new todo..."
         ref={ref}
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
         disabled={isLoading}
       />
-      {!isLoading ? (
-        <button className="input-submit" type="submit">
-          <FaPlusCircle className="btn-plus" />
-        </button>
-      ) : (
-        <FaSpinner className="spinner" />
-      )}
+      {!isLoading ? <PlusButton /> : <LoadingSpinner />}
     </form>
   );
 };

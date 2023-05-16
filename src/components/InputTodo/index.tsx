@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { FaSearch } from 'react-icons/fa';
 import { createTodo } from '../../api/todo';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import PlusButton from '../shared/PlusButton';
@@ -95,18 +96,21 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         }
         onSubmit={handleSubmit}
       >
-        <input
-          className={styles.input_text}
-          placeholder="Add new todo..."
-          value={inputText}
-          onChange={(e) => {
-            setInputText(e.target.value);
-            setIsTyping(true);
-          }}
-          disabled={isLoading}
-          autoFocus
-          onFocus={() => setIsModalOpen(true)}
-        />
+        <div className={styles.search_bar}>
+          <FaSearch />
+          <input
+            className={styles.input_text}
+            placeholder="Add new todo..."
+            value={inputText}
+            onChange={(e) => {
+              setInputText(e.target.value);
+              setIsTyping(true);
+            }}
+            disabled={isLoading}
+            autoFocus
+            onFocus={() => setIsModalOpen(true)}
+          />
+        </div>
         {!isLoading ? <PlusButton /> : <LoadingSpinner />}
       </form>
     </div>

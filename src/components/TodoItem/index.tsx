@@ -16,13 +16,13 @@ const TodoItem = ({ id, title, setTodos }: TodoItemProps) => {
   const handleRemoveTodo = useCallback(async () => {
     try {
       setIsLoading(true);
-      await deleteTodo(id);
 
+      await deleteTodo(id);
       setTodos((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error(error);
       alert('Something went wrong.');
-    } finally {
+
       setIsLoading(false);
     }
   }, [id, setTodos]);
@@ -32,7 +32,7 @@ const TodoItem = ({ id, title, setTodos }: TodoItemProps) => {
       <span>{title}</span>
       <div className={styles.item_option}>
         {!isLoading ? (
-          <TrashButton onClick={() => handleRemoveTodo()} />
+          <TrashButton onClick={handleRemoveTodo} />
         ) : (
           <LoadingSpinner />
         )}

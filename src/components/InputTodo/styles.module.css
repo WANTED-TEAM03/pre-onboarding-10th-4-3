@@ -1,3 +1,7 @@
+.form_wrapper {
+  position: relative;
+}
+
 .form_container {
   width: 100%;
   margin-bottom: 20px;
@@ -21,4 +25,9 @@
   height: 45px;
   outline: none;
   border: none;
+}
+
+.accent_border {
+  border: 1px solid #9f9f9f;
+  padding: 2px calc(1rem + 2px);
 }

@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-
 import { deleteTodo } from '../../api/todo';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import TrashButton from '../shared/TrashButton';

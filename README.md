@@ -57,6 +57,8 @@
       - [2. useIntersectionObserver hook](#2-useintersectionobserver-hook)
       - [3. 호출 제한](#3-호출-제한)
     - [Jest를 이용한 단위 테스트](#jest를-이용한-단위-테스트)
+      - [InputTodo 컴포넌트 테스트](#inputtodo-컴포넌트-테스트)
+      - [Dropdown 컴포넌트 테스트](#dropdown-컴포넌트-테스트)
 
 <br/>
 
@@ -70,16 +72,15 @@ https://pre-onboarding-10th-4-3.netlify.app/
 
 ![demo](https://github.com/WANTED-TEAM03/pre-onboarding-10th-4-3/assets/83197138/1c0f0ab0-a5fc-4d5e-b602-b1d7fc009618)
 
-
 <br/>
 
 ## 사용한 라이브러리
 
 <div align =center>
 
-|     Area     |                                                                                                                                                                                                                                                                                                                         Tech Stack                                                                                                                                                                                                                                                                                                                          |
-| :----------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **Frontend** | <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=TypeScript&logoColor=black"> <img src="https://img.shields.io/badge/Css-1572B6.svg?style=for-the-badge&logo=CSS3&logoColor=black"> <img src="https://img.shields.io/badge/Axios-5A29E4.svg?&style=for-the-badge&logo=axios&logoColor=white"> <img src="https://img.shields.io/badge/ESLINT-4B32C3?&style=for-the-badge&logo=ESLint&logoColor=white"> <img src="https://img.shields.io/badge/PRETTIER-F7B93E?&style=for-the-badge&logo=Prettier&logoColor=white"> |
+|     Area     |                                                                                                                                                                                                                                                                                                                                                                                                                                           Tech Stack                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| :----------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **Frontend** | <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=TypeScript&logoColor=black"> <img src="https://img.shields.io/badge/Css-1572B6.svg?style=for-the-badge&logo=CSS3&logoColor=black"> <img src="https://img.shields.io/badge/Axios-5A29E4.svg?&style=for-the-badge&logo=axios&logoColor=white"> <img src="https://img.shields.io/badge/JEST-C21325?&style=for-the-badge&logo=Jest&logoColor=white"> <img src="https://img.shields.io/badge/React Testing Library-E33332?&style=for-the-badge&logo=Testing Library&logoColor=white"> <img src="https://img.shields.io/badge/ESLINT-4B32C3?&style=for-the-badge&logo=ESLint&logoColor=white"> <img src="https://img.shields.io/badge/PRETTIER-F7B93E?&style=for-the-badge&logo=Prettier&logoColor=white"> |
 
 </div>
 
@@ -89,6 +90,8 @@ https://pre-onboarding-10th-4-3.netlify.app/
 
 ```
 📦src
+├── 📂__mocks__
+├── 📂__tests__
 ├── 📂api
 ├── 📂components
 │   └── 📂Dropdown
@@ -129,14 +132,20 @@ $ yarn
 ```
 // .env
 
-REACT_APP_API_URL =
-REACT_APP_TOKEN =
+REACT_APP_API_URL=
+REACT_APP_TOKEN=
 ```
 
 애플리케이션 실행
 
 ```bash
 $ yarn start
+```
+
+테스트 실행
+
+```bash
+$ yarn test
 ```
 
 <br/>
@@ -169,8 +178,7 @@ $ yarn start
   - 검색 결과를 최대 10개씩 받아올 수 있도록 구현했습니다.
 
 - **jest를 이용한 단위 테스트**
-  - 캐시나 데이터베이스와 같은 다른 컴포넌트와 연결이 된 구조가 아니기 때문에 통합 테스트가 아닌 단위 테스트가 더 적합하다고 생각했습니다.
-  - 기능들을 독립적으로 테스트하여 테스트에 걸리는 시간과 비용을 절감했고 리팩토링 시의 안정성을 보장했습니다.
+  - `<InputTodo>`, `<Dropdown>` 컴포넌트의 단위 테스트 코드를 작성하여 주요 기능 및 이벤트 발생에 따른 로직을 테스트하고자 했습니다.
 
 <br />
 
@@ -514,5 +522,50 @@ return(
 
 ### Jest를 이용한 단위 테스트
 
-- 데이터베이스와 같이 다른 시스템과 통신하는 구조인 경우 통합 테스트가 적합하지만, 본 프로젝트 구조는 기능들을 독립적으로 테스트하는 단위 테스트가 더 적합하다고 생각했습니다.
-- 단위 테스트를 통해 테스트에 걸리는 시간과 비용을 절감했고 리팩토링 시의 안정성을 보장했습니다.
+#### InputTodo 컴포넌트 테스트
+
+- 기존에 사용되고 있던 `useFocus` 커스텀 훅을 대체하여 추가한 `autoFocus` 속성을 검증하기 위해 첫 렌더링 시 자동 포커스 여부를 테스트했습니다.
+
+```ts
+// src/__tests__/inputTodo.test.tsx
+
+expect(screen.getByTestId('input-text')).toHaveFocus();
+```
+
+- input에 입력된 입력값을 인자로 하는 디바운싱 커스텀 훅 호출 여부를 테스트했습니다.
+
+```ts
+// src/__tests__/inputTodo.test.tsx
+
+test('input 입력 시 입력값으로 디바운싱 실행됨', () => {
+  const inputText = screen.getByTestId('input-text');
+  const INPUT = 'lorem';
+
+  userEvent.type(inputText, INPUT);
+
+  expect(useDebounce).toHaveBeenCalledWith(INPUT);
+});
+```
+
+#### Dropdown 컴포넌트 테스트
+
+- API 호출을 통해 받아오는 추천 검색어 배열과 실제 렌더링되는 드롭다운 리스트의 일치 여부를 테스트했습니다.
+
+```ts
+// src/__tests__/dropdown.test.tsx
+
+expect(dropdownItems.length).toBe(DropdownProps.recommendList.length);
+```
+
+- 모든 추천 검색어 리스트 중 `input` 입력값과 일치하는 모든 문자열의 글자색 강조 스타일링 적용 여부를 테스트했습니다.
+
+```ts
+// src/__tests__/dropdown.test.tsx
+
+test('모든 추천 검색어 리스트에서 입력값과 일치하는 문자열은 글자색 강조 스타일링 적용', () => {
+  const keywords = screen.getAllByText(DropdownProps.keyword);
+  const accentTexts = screen.getAllByTestId('accent-text');
+
+  expect(keywords).toMatchObject(accentTexts);
+});
+```

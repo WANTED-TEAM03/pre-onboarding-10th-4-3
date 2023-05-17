@@ -5,13 +5,13 @@ import LoadingSpinner from '../shared/LoadingSpinner';
 import styles from './styles.module.css';
 
 type DropdownProps = {
+  scrollRef: React.RefObject<HTMLUListElement>;
+  keyword: string;
   recommendList: string[];
   isSearching: boolean;
-  handleClick: (value: string) => () => Promise<void>;
-  keyword: string;
-  getMoreItem: () => Promise<void>;
   hasNextPage: boolean;
-  scrollRef: React.RefObject<HTMLUListElement>;
+  handleClick: (value: string) => () => Promise<void>;
+  getMoreItem: () => Promise<void>;
 };
 
 const Dropdown = ({
@@ -30,7 +30,7 @@ const Dropdown = ({
   const { setTarget } = useIntersectionObserver({ onIntersect });
 
   return (
-    <ul className={styles.dropdown} ref={scrollRef}>
+    <ul className={styles.dropdown} data-testid="dropdown" ref={scrollRef}>
       {recommendList.map((searchWord, index) => (
         <DropdownItem
           key={index}

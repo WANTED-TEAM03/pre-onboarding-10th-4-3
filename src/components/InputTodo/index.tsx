@@ -21,7 +21,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
 
   const debouncedInputText = useDebounce(inputText);
   const { isModalOpen, setIsModalOpen, setTarget } = useToggleModal();
-  const { isSearching, recommendList, setPage, isMoreData } =
+  const { isSearching, recommendList, hasNextPage, scrollRef, getMoreItem } =
     useSearch(debouncedInputText);
 
   const handleSubmit = useCallback(
@@ -80,12 +80,13 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
     <div className={styles.form_wrapper} ref={setTarget}>
       {isModalOpen && recommendList.length > 0 && (
         <Dropdown
+          scrollRef={scrollRef}
+          keyword={debouncedInputText}
           recommendList={recommendList}
           isSearching={isSearching}
-          setPage={setPage}
-          isMoreData={isMoreData}
+          hasNextPage={hasNextPage}
           handleClick={handleClick}
-          keyword={debouncedInputText}
+          getMoreItem={getMoreItem}
         />
       )}
       <form
@@ -111,7 +112,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
             onFocus={() => setIsModalOpen(true)}
           />
         </div>
-        {!isLoading ? <PlusButton /> : <LoadingSpinner />}
+        {!isLoading && !isSearching ? <PlusButton /> : <LoadingSpinner />}
       </form>
     </div>
   );

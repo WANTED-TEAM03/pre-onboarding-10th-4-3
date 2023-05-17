@@ -6,28 +6,30 @@ import styles from './styles.module.css';
 type DropdownProps = {
   recommendList: string[];
   isSearching: boolean;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
   handleClick: (value: string) => () => Promise<void>;
-  isMoreData: boolean;
   keyword: string;
+  getMoreItem: () => Promise<void>;
+  hasNextPage: boolean;
+  scrollRef: React.RefObject<HTMLUListElement>;
 };
 
 const Dropdown = ({
+  scrollRef,
+  keyword,
   recommendList,
   isSearching,
-  setPage,
+  hasNextPage,
   handleClick,
-  isMoreData,
-  keyword,
+  getMoreItem,
 }: DropdownProps) => {
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
     if (isSearching) return;
-    if (isIntersecting) setPage((prev) => prev + 1);
+    if (isIntersecting) getMoreItem();
   };
   const { setTarget } = useIntersectionObserver({ onIntersect });
 
   return (
-    <ul className={styles.dropdown}>
+    <ul className={styles.dropdown} ref={scrollRef}>
       {recommendList.map((searchWord, index) => (
         <DropdownItem
           key={index}
@@ -37,7 +39,7 @@ const Dropdown = ({
         />
       ))}
       {isSearching && <LoadingSpinner className={styles.align_center} />}
-      {!isSearching && isMoreData && (
+      {!isSearching && hasNextPage && (
         <span
           className={`${styles.align_center} ${styles.ellipsis}`}
           ref={setTarget}

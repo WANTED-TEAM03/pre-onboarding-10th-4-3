@@ -1,37 +1,52 @@
-import { useEffect, useState } from 'react';
-import { DEFAULT_PAGE, DEFAULT_SEARCHEDLIST } from '../constants/search';
+import { useEffect, useRef, useState } from 'react';
+import { DEFAULT_NEXT_PAGE, DEFAULT_PAGE } from '../constants/search';
 import { getSearchedList } from '../api/search';
 
 const useSearch = (inputText: string) => {
   const [isSearching, setIsSearching] = useState(false);
-  const [searchedList, setSearchedList] =
-    useState<Search>(DEFAULT_SEARCHEDLIST);
-  const [page, setPage] = useState(DEFAULT_PAGE);
+  const [nextPage, setNextPage] = useState(DEFAULT_PAGE);
+  const [hasNextPage, setHasNextPage] = useState(false);
   const [recommendList, setRecommendList] = useState<string[]>([]);
 
-  const { q, total } = searchedList;
-  const isMoreData = recommendList.length < total;
+  const scrollRef = useRef<HTMLUListElement>(null);
+
+  const scrollToTop = () => {
+    scrollRef.current?.scrollTo(0, 0);
+  };
+
+  const getMoreItem = async () => {
+    if (!hasNextPage) return;
+
+    setIsSearching(true);
+
+    const moreItem = await getSearchedList(inputText, nextPage);
+    setRecommendList((prev) => [...prev, ...moreItem.result]);
+
+    if (moreItem.qty < moreItem.limit) setHasNextPage(false);
+    setNextPage((prev) => prev + 1);
+
+    setIsSearching(false);
+  };
+
   useEffect(() => {
-    const fetchSearchedList = async () => {
-      if (inputText === '') {
-        setSearchedList(DEFAULT_SEARCHEDLIST);
+    setNextPage(DEFAULT_NEXT_PAGE);
+
+    const fetchAutocompleteWords = async () => {
+      const text = inputText.trim().toLowerCase();
+      if (text === '') {
         setRecommendList([]);
-        setPage(DEFAULT_PAGE);
         return;
       }
-      if (q !== inputText) {
-        setSearchedList(DEFAULT_SEARCHEDLIST);
-        setRecommendList([]);
-        setPage(DEFAULT_PAGE);
-      }
+
       try {
         setIsSearching(true);
-        const data = await getSearchedList(inputText, page);
-        if (data) {
-          setSearchedList(data);
-          if (q === inputText)
-            setRecommendList((prev) => [...prev, ...data.result]);
-        }
+
+        const response = await getSearchedList(inputText);
+        const { limit, page, qty, total, result } = response;
+
+        if (limit * (page - DEFAULT_PAGE) + qty < total) setHasNextPage(true);
+        scrollToTop();
+        setRecommendList(result);
       } catch (error) {
         console.error(error);
         alert('Something went wrong.');
@@ -40,10 +55,16 @@ const useSearch = (inputText: string) => {
       }
     };
 
-    fetchSearchedList();
-  }, [inputText, page, q]);
+    fetchAutocompleteWords();
+  }, [inputText]);
 
-  return { isSearching, setPage, isMoreData, recommendList, setRecommendList };
+  return {
+    isSearching,
+    recommendList,
+    hasNextPage,
+    scrollRef,
+    getMoreItem,
+  };
 };
 
 export default useSearch;

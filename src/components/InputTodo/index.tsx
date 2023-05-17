@@ -30,18 +30,17 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
     getMoreItem,
   } = useSearch(debouncedInputText);
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
+  const addTodo = useCallback(
+    async (input: string) => {
       try {
-        e.preventDefault();
         setIsLoading(true);
 
-        const trimmedText = inputText.trim();
-        if (!trimmedText) {
+        const trimmed = input.trim();
+        if (!trimmed) {
           return alert('Please write something');
         }
 
-        const newItem = { title: trimmedText };
+        const newItem = { title: trimmed };
         const data = await createTodo(newItem);
 
         if (data) {
@@ -55,27 +54,17 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         setIsLoading(false);
       }
     },
-    [inputText, setTodos],
+    [setTodos],
   );
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    addTodo(inputText);
+  };
+
   const handleClick = (value: string) => async () => {
-    try {
-      setIsLoading(true);
-
-      setInputText(value);
-      const newItem = { title: value };
-      const data = await createTodo(newItem);
-
-      if (data) {
-        return setTodos((prev) => [...prev, data]);
-      }
-    } catch (error) {
-      console.error(error);
-      alert('Something went wrong.');
-    } finally {
-      setInputText('');
-      setIsLoading(false);
-    }
+    setInputText(value);
+    addTodo(value);
   };
 
   useEffect(() => {

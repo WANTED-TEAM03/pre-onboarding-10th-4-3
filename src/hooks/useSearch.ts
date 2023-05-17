@@ -4,8 +4,9 @@ import { getSearchedList } from '../api/search';
 
 const useSearch = (inputText: string) => {
   const [isSearching, setIsSearching] = useState(false);
-  const [nextPage, setNextPage] = useState(DEFAULT_PAGE);
   const [hasNextPage, setHasNextPage] = useState(false);
+  const [isFirstSearch, setIsFirstSearch] = useState(true);
+  const [nextPage, setNextPage] = useState(DEFAULT_NEXT_PAGE);
   const [recommendList, setRecommendList] = useState<string[]>([]);
 
   const scrollRef = useRef<HTMLUListElement>(null);
@@ -19,21 +20,30 @@ const useSearch = (inputText: string) => {
 
     setIsSearching(true);
 
-    const moreItem = await getSearchedList(inputText, nextPage);
-    setRecommendList((prev) => [...prev, ...moreItem.result]);
+    try {
+      const trimmedText = inputText.trim().toLowerCase();
+      const response = await getSearchedList(trimmedText, nextPage);
+      const { limit, page, qty, total, result } = response;
 
-    if (moreItem.qty < moreItem.limit) setHasNextPage(false);
-    setNextPage((prev) => prev + 1);
+      setRecommendList((prev) => [...prev, ...result]);
 
-    setIsSearching(false);
+      if (limit * (page - DEFAULT_PAGE) + qty >= total) setHasNextPage(false);
+      setNextPage((prev) => prev + 1);
+    } catch (error) {
+      console.error(error);
+      alert('Something went wrong.');
+    } finally {
+      setIsSearching(false);
+    }
   };
 
   useEffect(() => {
     setNextPage(DEFAULT_NEXT_PAGE);
+    setIsFirstSearch(true);
 
     const fetchAutocompleteWords = async () => {
-      const text = inputText.trim().toLowerCase();
-      if (text === '') {
+      const trimmedText = inputText.trim().toLowerCase();
+      if (!trimmedText) {
         setRecommendList([]);
         return;
       }
@@ -41,7 +51,7 @@ const useSearch = (inputText: string) => {
       try {
         setIsSearching(true);
 
-        const response = await getSearchedList(inputText);
+        const response = await getSearchedList(trimmedText);
         const { limit, page, qty, total, result } = response;
 
         if (limit * (page - DEFAULT_PAGE) + qty < total) setHasNextPage(true);
@@ -52,6 +62,7 @@ const useSearch = (inputText: string) => {
         alert('Something went wrong.');
       } finally {
         setIsSearching(false);
+        setIsFirstSearch(false);
       }
     };
 
@@ -62,6 +73,7 @@ const useSearch = (inputText: string) => {
     isSearching,
     recommendList,
     hasNextPage,
+    isFirstSearch,
     scrollRef,
     getMoreItem,
   };

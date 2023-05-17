@@ -1,14 +1,16 @@
+import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import Dropdown from '../components/Dropdown';
 
 const DropdownProps = {
+  keyword: 'a',
   recommendList: ['a', 'aba', 'abc', 'abaca', 'abcde', 'abcdef'],
   isSearching: false,
-  setPage: jest.fn(),
   handleClick: jest.fn(),
-  isMoreData: false,
-  keyword: 'a',
+  getMoreItem: jest.fn(),
+  hasNextPage: false,
+  scrollRef: React.createRef<HTMLUListElement>(),
 };
 
 describe('Dropdown 컴포넌트 테스트', () => {

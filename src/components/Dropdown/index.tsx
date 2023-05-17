@@ -1,33 +1,36 @@
+import { AiOutlineEllipsis } from 'react-icons/ai';
 import useIntersectionObserver from '../../hooks/useIntersectonObserver';
 import DropdownItem from '../DropdownItem';
 import LoadingSpinner from '../shared/LoadingSpinner';
 import styles from './styles.module.css';
 
 type DropdownProps = {
+  scrollRef: React.RefObject<HTMLUListElement>;
+  keyword: string;
   recommendList: string[];
   isSearching: boolean;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  hasNextPage: boolean;
   handleClick: (value: string) => () => Promise<void>;
-  isMoreData: boolean;
-  keyword: string;
+  getMoreItem: () => Promise<void>;
 };
 
 const Dropdown = ({
+  scrollRef,
+  keyword,
   recommendList,
   isSearching,
-  setPage,
+  hasNextPage,
   handleClick,
-  isMoreData,
-  keyword,
+  getMoreItem,
 }: DropdownProps) => {
   const onIntersect: IntersectionObserverCallback = ([{ isIntersecting }]) => {
     if (isSearching) return;
-    if (isIntersecting) setPage((prev) => prev + 1);
+    if (isIntersecting) getMoreItem();
   };
   const { setTarget } = useIntersectionObserver({ onIntersect });
 
   return (
-    <ul className={styles.dropdown} data-testid="dropdown">
+    <ul className={styles.dropdown} data-testid="dropdown" ref={scrollRef}>
       {recommendList.map((searchWord, index) => (
         <DropdownItem
           key={index}
@@ -37,12 +40,12 @@ const Dropdown = ({
         />
       ))}
       {isSearching && <LoadingSpinner className={styles.align_center} />}
-      {!isSearching && isMoreData && (
+      {!isSearching && hasNextPage && (
         <span
           className={`${styles.align_center} ${styles.ellipsis}`}
           ref={setTarget}
         >
-          ...
+          <AiOutlineEllipsis />
         </span>
       )}
     </ul>

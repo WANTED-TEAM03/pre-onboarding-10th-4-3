@@ -21,21 +21,26 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
 
   const debouncedInputText = useDebounce(inputText);
   const { isModalOpen, setIsModalOpen, setTarget } = useToggleModal();
-  const { isSearching, recommendList, setPage, isMoreData } =
-    useSearch(debouncedInputText);
+  const {
+    isSearching,
+    recommendList,
+    hasNextPage,
+    isFirstSearch,
+    scrollRef,
+    getMoreItem,
+  } = useSearch(debouncedInputText);
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
+  const addTodo = useCallback(
+    async (input: string) => {
       try {
-        e.preventDefault();
         setIsLoading(true);
 
-        const trimmed = inputText.trim();
-        if (!trimmed) {
+        const trimmedText = input.trim();
+        if (!trimmedText) {
           return alert('Please write something');
         }
 
-        const newItem = { title: trimmed };
+        const newItem = { title: trimmedText };
         const data = await createTodo(newItem);
 
         if (data) {
@@ -49,27 +54,17 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
         setIsLoading(false);
       }
     },
-    [inputText, setTodos],
+    [setTodos],
   );
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    addTodo(inputText);
+  };
+
   const handleClick = (value: string) => async () => {
-    try {
-      setIsLoading(true);
-
-      setInputText(value);
-      const newItem = { title: value };
-      const data = await createTodo(newItem);
-
-      if (data) {
-        return setTodos((prev) => [...prev, data]);
-      }
-    } catch (error) {
-      console.error(error);
-      alert('Something went wrong.');
-    } finally {
-      setInputText('');
-      setIsLoading(false);
-    }
+    setInputText(value);
+    addTodo(value);
   };
 
   useEffect(() => {
@@ -84,12 +79,13 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
     >
       {isModalOpen && recommendList.length > 0 && (
         <Dropdown
+          scrollRef={scrollRef}
+          keyword={debouncedInputText}
           recommendList={recommendList}
           isSearching={isSearching}
-          setPage={setPage}
-          isMoreData={isMoreData}
+          hasNextPage={hasNextPage}
           handleClick={handleClick}
-          keyword={debouncedInputText}
+          getMoreItem={getMoreItem}
         />
       )}
       <form
@@ -117,7 +113,12 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
             data-testid="input-text"
           />
         </div>
-        {!isLoading ? <PlusButton /> : <LoadingSpinner />}
+        {!isLoading && isFirstSearch && isSearching && <LoadingSpinner />}
+        {!isLoading ? (
+          <PlusButton className={styles.test} />
+        ) : (
+          <LoadingSpinner />
+        )}
       </form>
     </div>
   );

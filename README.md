@@ -1,4 +1,4 @@
-했<div align="center">
+<div align="center">
 <img src="https://user-images.githubusercontent.com/83197138/235145795-a6e62810-0e0c-4ff4-bd87-7460b42825a7.png"/>
 
   <h2>👨‍👨‍👧‍👦 TEAM 보람삼조</h2>
@@ -62,9 +62,14 @@
 
 ## 배포 링크
 
+https://pre-onboarding-10th-4-3.netlify.app/
+
 <br/>
 
 ## 동작 화면
+
+![demo](https://github.com/WANTED-TEAM03/pre-onboarding-10th-4-3/assets/83197138/1c0f0ab0-a5fc-4d5e-b602-b1d7fc009618)
+
 
 <br/>
 

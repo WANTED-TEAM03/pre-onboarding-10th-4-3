@@ -35,12 +35,12 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
       try {
         setIsLoading(true);
 
-        const trimmed = input.trim();
-        if (!trimmed) {
+        const trimmedText = input.trim();
+        if (!trimmedText) {
           return alert('Please write something');
         }
 
-        const newItem = { title: trimmed };
+        const newItem = { title: trimmedText };
         const data = await createTodo(newItem);
 
         if (data) {

@@ -1,3 +1,4 @@
+import { AiOutlineEllipsis } from 'react-icons/ai';
 import useIntersectionObserver from '../../hooks/useIntersectonObserver';
 import DropdownItem from '../DropdownItem';
 import LoadingSpinner from '../shared/LoadingSpinner';
@@ -44,7 +45,7 @@ const Dropdown = ({
           className={`${styles.align_center} ${styles.ellipsis}`}
           ref={setTarget}
         >
-          ...
+          <AiOutlineEllipsis />
         </span>
       )}
     </ul>

@@ -13,11 +13,16 @@ const DropdownItem = ({
   handleClick,
 }: DropdownItemProps) => {
   return (
-    <li className={styles.dropdown_item} onClick={handleClick(searchWord)}>
+    <li
+      className={styles.dropdown_item}
+      onClick={handleClick(searchWord)}
+      data-testid="dropdown-item"
+    >
       {splitTextWithKeyword(searchWord, keyword).map((text, index) => (
         <span
           key={index}
           className={text === keyword ? styles.accent_text : ''}
+          data-testid={text === keyword ? 'accent-text' : ''}
         >
           {text}
         </span>

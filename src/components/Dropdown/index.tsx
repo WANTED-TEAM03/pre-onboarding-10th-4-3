@@ -27,7 +27,7 @@ const Dropdown = ({
   const { setTarget } = useIntersectionObserver({ onIntersect });
 
   return (
-    <ul className={styles.dropdown}>
+    <ul className={styles.dropdown} data-testid="dropdown">
       {recommendList.map((searchWord, index) => (
         <DropdownItem
           key={index}

@@ -35,12 +35,12 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
       try {
         setIsLoading(true);
 
-        const trimmed = input.trim();
-        if (!trimmed) {
+        const trimmedText = input.trim();
+        if (!trimmedText) {
           return alert('Please write something');
         }
 
-        const newItem = { title: trimmed };
+        const newItem = { title: trimmedText };
         const data = await createTodo(newItem);
 
         if (data) {
@@ -72,7 +72,11 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
   }, [debouncedInputText]);
 
   return (
-    <div className={styles.form_wrapper} ref={setTarget}>
+    <div
+      className={styles.form_wrapper}
+      ref={setTarget}
+      data-testid="form-wrapper"
+    >
       {isModalOpen && recommendList.length > 0 && (
         <Dropdown
           scrollRef={scrollRef}
@@ -91,6 +95,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
             : styles.form_container
         }
         onSubmit={handleSubmit}
+        data-testid="form"
       >
         <div className={styles.search_bar}>
           <FaSearch />
@@ -105,6 +110,7 @@ const InputTodo = ({ setTodos }: InputTodoProps) => {
             disabled={isLoading}
             autoFocus
             onFocus={() => setIsModalOpen(true)}
+            data-testid="input-text"
           />
         </div>
         {!isLoading && isFirstSearch && isSearching && <LoadingSpinner />}
